@@ -8,7 +8,7 @@ class Inference:
         self.tokenizer = MBart50TokenizerFast.from_pretrained("facebook/mbart-large-50-one-to-many-mmt", src_lang="en_XX")
 
     def translate(self, text):
-        if len(self.tokenizer.encode(text1)) >= self.max_length:
+        if len(self.tokenizer.encode(text)) >= self.max_length:
             inputs_no_trunc = self.tokenizer(text, max_length=None, return_tensors='pt', truncation=False)
             chunk_start = 0
             chunk_end = self.tokenizer.model_max_length  # == 1024 for Bart
@@ -29,7 +29,7 @@ class Inference:
 
             translation = '\n'.join(translation_batch_lst)
 
-        if len(self.tokenizer.encode(text1)) < self.max_length:
+        if len(self.tokenizer.encode(text)) < self.max_length:
             model_inputs = self.tokenizer(text, return_tensors="pt")
             generated_tokens = self.model.generate(**model_inputs,
                                                    forced_bos_token_id=self.tokenizer.lang_code_to_id["ko_KR"],
