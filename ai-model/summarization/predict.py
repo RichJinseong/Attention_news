@@ -8,7 +8,7 @@ import torch
 class NewsSummaryModel(pl.LightningDataModule):
     def __init__(self):
         super().__init__()
-        self.model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn", return_dict=True)
+        self.model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-6-6", return_dict=True)
 
     def forward(self, input_ids, attention_mask, decoder_attention_mask, labels=None):
 
@@ -74,10 +74,9 @@ class NewsSummaryModel(pl.LightningDataModule):
 
 
 class Inference:
-    def __init__(self):
+    def __init__(self, model_path):
         self.trained_model = NewsSummaryModel.load_from_checkpoint(model_path)
-        # self.model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
-        self.tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn")
+        self.tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-6-6")
 
     def summarize(self, text):
         text_len = len(self.tokenizer.encode(text))
