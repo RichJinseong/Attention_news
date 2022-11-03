@@ -1,0 +1,61 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  width: 100vw;
+  height: 100%;
+  font-family: NanumSquareAcr, serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#__next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoM';
+  src: url('/fonts/AppleSDGothicNeoM.ttf');
+}
+
+@font-face {
+  font-family: 'NanumSquareAcEB';
+  src: url('/fonts/NanumSquare_acEB.ttf');
+}
+
+@font-face {
+  font-family: 'NanumSquareEB';
+  src: url('/fonts/NanumSquareEB.ttf');
+}
+
+@font-face {
+  font-family: 'NanumSquareR';
+  src: url('/fonts/NanumSquareR.ttf');
+}
+@font-face {
+  font-family: 'AppleSDGothicNeoB';
+  src: url('/fonts/AppleSDGothicNeoB.ttf');
+}
+@font-face {
+  font-family: 'AppleSDGothicNeoL';
+  src: url('/fonts/AppleSDGothicNeoL.ttf');
+}
+@font-face {
+  font-family: 'NanumSquare_acR';
+  src: url('/fonts/NanumSquare_acR.ttf');
+}
+
+
+
+
+* {
+  box-sizing: border-box;
+}
