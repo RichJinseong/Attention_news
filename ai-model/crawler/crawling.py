@@ -16,7 +16,7 @@ def crawling_bot():
             'html.parser'
         )
         try:
-            for td in tqdm(soup.find('main', attrs={"class": "gnt_cw"}).find_all('a')):
+            for td in soup.find('main', attrs={"class": "gnt_cw"}).find_all('a'):
                 try:
                     news_url = td['href']
                     news_split = news_url.split('/')
@@ -40,7 +40,7 @@ def crawling_bot():
         except:
             pass
 
-        return data
+    return data
 
 
 if __name__ == '__main__':
