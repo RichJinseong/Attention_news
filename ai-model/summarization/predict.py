@@ -74,9 +74,9 @@ class NewsSummaryModel(pl.LightningDataModule):
 
 
 class Inference:
-    def __init__(self, model_path='./model/best.ckpt'):
-        # self.trained_model = NewsSummaryModel.load_from_checkpoint(model_path)
-        self.model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
+    def __init__(self):
+        self.trained_model = NewsSummaryModel.load_from_checkpoint(model_path)
+        # self.model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
         self.tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn")
 
     def summarize(self, text):
@@ -95,8 +95,8 @@ class Inference:
                 chunk_end += self.tokenizer.model_max_length  # == 1024 for Bart
 
             # generate a summary on each batch
-            # summary_ids_lst = [self.trained_model.model.generate(inputs, num_beams=4, max_length=256, early_stopping=True) for inputs in inputs_batch_lst]
-            summary_ids_lst = [self.model.generate(inputs, num_beams=4, max_length=256, early_stopping=True) for inputs in inputs_batch_lst]
+            summary_ids_lst = [self.trained_model.model.generate(inputs, num_beams=4, max_length=256, early_stopping=True) for inputs in inputs_batch_lst]
+            # summary_ids_lst = [self.model.generate(inputs, num_beams=4, max_length=256, early_stopping=True) for inputs in inputs_batch_lst]
 
             # decode the output and join into one string with one paragraph per summary batch
             summary_batch_lst = []
@@ -106,8 +106,8 @@ class Inference:
             summary_all = '\n'.join(summary_batch_lst)
         if text_len < 1500:
             inputs = self.tokenizer(text, mask_token=1024, truncation=True, return_tensors='pt')
-            # generated_ids = self.trained_model.model.generate(inputs['input_ids'], num_beams=4, max_length=256, early_stopping=True)
-            generated_ids = self.model.generate(inputs['input_ids'], num_beams=4, max_length=256, early_stopping=True)
+            generated_ids = self.trained_model.model.generate(inputs['input_ids'], num_beams=4, max_length=256, early_stopping=True)
+            # generated_ids = self.model.generate(inputs['input_ids'], num_beams=4, max_length=256, early_stopping=True)
             preds = [self.tokenizer.decode(gen_id, skip_special_tokens=True, clean_up_tokenization_spaces=False) for gen_id in generated_ids]
             summary_all = "".join(preds)
 
