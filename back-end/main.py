@@ -105,4 +105,7 @@ def article_detail(article_id):
     return jsonify({'data': article})
 
 
-app.run(host="localhost",port=5001,debug=True)
+if os.environ.get('prod'):
+    app.run(host="3.36.247.224", port=8080, debug=True)
+else:
+    app.run(host="localhost", port=5001, debug=True)
